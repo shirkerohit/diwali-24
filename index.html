@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diwali Celebrations 2024</title>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.css"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF9800;
+            --secondary: #FFC107;
+            --accent: #FF5722;
+            --background: #121212;
+            --surface: #1E1E1E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('/api/placeholder/1920/1080') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diya {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.2);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .cta-button {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .fullscreen-image {
+            padding: 200px;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--background);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fullscreen-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .fullscreen-image.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero" id="hero">
+        <h1>Since you are here,</h1>
+        <p>Click on the button to claim</p>
+        <button class="cta-button" onclick="handleClick()">I am in 🎉</button>
+    </div>
+
+    <div class="fullscreen-image" id="fullscreenImage">
+        <img src="jethbhai.png" alt="Celebration Image">
+    </div>
+
+    <audio id="backgroundAudio" preload="auto">
+        <!-- Replace with your audio file URL -->
+        <source src="wish.m4a" type="audio/mp3">
+    </audio>
+
+    <script>
+        // Create floating diya elements
+        function createDiyas() {
+            const hero = document.getElementById('hero');
+            for (let i = 0; i < 20; i++) {
+                const diya = document.createElement('div');
+                diya.className = 'diya';
+                diya.style.left = Math.random() * 100 + 'vw';
+                diya.style.bottom = Math.random() * 100 + 'vh';
+                diya.style.animationDelay = Math.random() * 3 + 's';
+                hero.appendChild(diya);
+            }
+        }
+
+        // Handle button click
+        function handleClick() {
+            const audio = document.getElementById('backgroundAudio');
+            const fullscreenImage = document.getElementById('fullscreenImage');
+
+            // Play audio
+            audio.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+
+            // Show fullscreen image
+            fullscreenImage.classList.add('active');
+
+            // Optional: Add click listener to exit fullscreen
+            fullscreenImage.addEventListener('click', () => {
+                fullscreenImage.classList.remove('active');
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        }
+
+        // Initialize
+        createDiyas();
+    </script>
+</body>
+
+</html>
